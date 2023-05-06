@@ -114,7 +114,7 @@ public class FakeProductRepository implements ProductRepository {
 
     @Override
     public boolean existsById(String name) {
-        throw new UnsupportedOperationException();
+        return products.stream().anyMatch(it -> it.getName().equals(name));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package li.kevin.electronicStore.controllers;
 
+import li.kevin.electronicStore.entities.Discount;
 import li.kevin.electronicStore.entities.Product;
 import li.kevin.electronicStore.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,25 @@ public class AdminController {
     @DeleteMapping("removeProduct/{name}")
     public String removeProduct(@PathVariable String name) {
         return service.removeProduct(name);
+    }
+
+    @PostMapping("addDiscount")
+    public Discount addDiscount(@RequestBody Discount discount) {
+        return service.saveDiscount(discount);
+    }
+
+    @GetMapping("discounts")
+    public Iterable<Discount> findAllDiscounts() {
+        return service.getDiscounts();
+    }
+
+    @PutMapping("updateDiscount")
+    public Discount updateDiscount(@RequestBody Discount discount) {
+        return service.updateDiscount(discount);
+    }
+
+    @DeleteMapping("removeDiscount/{id}")
+    public String removeDiscount(@PathVariable int id) {
+        return service.removeDiscount(id);
     }
 }

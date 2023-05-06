@@ -38,7 +38,7 @@ public class ProductRepositoryContractTest {
     @MethodSource("adapters")
     @DisplayName("Should be able to save a product")
     void saveProduct(String ignoredTestName, ProductRepository repository) {
-        Product expected = new Product("some-product", new BigDecimal("10.0"));
+        Product expected = new Product("some-product", new BigDecimal("10.00"));
         repository.save(expected);
         assertThat(repository.findAll()).contains(expected);
     }
@@ -47,7 +47,7 @@ public class ProductRepositoryContractTest {
     @MethodSource("adapters")
     @DisplayName("Should be able to remove a product")
     void removeProduct(String ignoredTestName, ProductRepository repository) {
-        Product product = new Product("some-product", new BigDecimal("10.0"));
+        Product product = new Product("some-product", new BigDecimal("10.00"));
         product = repository.save(product);
         repository.deleteById(product.getName());
         assertThat(repository.findAll()).doesNotContain(product);
@@ -57,17 +57,17 @@ public class ProductRepositoryContractTest {
     @MethodSource("adapters")
     @DisplayName("Should be able to update a product")
     void updateProduct(String ignoredTestName, ProductRepository repository) {
-        repository.save(new Product("some-product", new BigDecimal("10.0")));
-        repository.save(new Product("some-product", new BigDecimal("11.0")));
-        assertThat(repository.findById("some-product").get().getPrice()).isEqualByComparingTo(new BigDecimal("11.0"));
+        repository.save(new Product("some-product", new BigDecimal("10.00")));
+        repository.save(new Product("some-product", new BigDecimal("11.00")));
+        assertThat(repository.findById("some-product").get().getPrice()).isEqualByComparingTo(new BigDecimal("11.00"));
     }
 
     @ParameterizedTest(name = "[{index}]: {0}")
     @MethodSource("adapters")
     @DisplayName("Should be able to find all products")
     void findAllProducts(String ignoredTestName, ProductRepository repository) {
-        Product product1 = new Product("some-product", new BigDecimal("10.0"));
-        Product product2 = new Product("some-other-product", new BigDecimal("10.0"));
+        Product product1 = new Product("some-product", new BigDecimal("10.00"));
+        Product product2 = new Product("some-other-product", new BigDecimal("10.00"));
         repository.save(product1);
         repository.save(product2);
         List<Product> actual = repository.findAll();
@@ -79,12 +79,21 @@ public class ProductRepositoryContractTest {
     @MethodSource("adapters")
     @DisplayName("Should be able to find by name")
     void findById(String ignoredTestName, ProductRepository repository) {
-        Product product1 = new Product("some-product", new BigDecimal("10.0"));
-        Product product2 = new Product("some-other-product", new BigDecimal("10.0"));
+        Product product1 = new Product("some-product", new BigDecimal("10.00"));
+        Product product2 = new Product("some-other-product", new BigDecimal("10.00"));
         repository.save(product1);
         repository.save(product2);
         Product actual = repository.findById("some-product").get();
         assertThat(actual).isEqualTo(product1);
+    }
+
+    @ParameterizedTest(name = "[{index}]: {0}")
+    @MethodSource("adapters")
+    @DisplayName("Should be able to check exist")
+    void existsById(String ignoredTestName, ProductRepository repository) {
+        repository.save(new Product("some-product", new BigDecimal("10.00")));
+        assertThat(repository.existsById("some-product")).isTrue();
+        assertThat(repository.existsById("some-other-product")).isFalse();
     }
 
     public List<Arguments> adapters() {
