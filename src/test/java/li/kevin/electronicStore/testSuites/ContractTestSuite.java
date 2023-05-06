@@ -5,7 +5,7 @@ import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
 
 @Suite
-@SelectPackages({"li.kevin.electronicStore.controllers"})
-@SuiteDisplayName("E2E test")
-public class E2ETestSuite {
+@SelectPackages({"li.kevin.electronicStore.contracts"})
+@SuiteDisplayName("Contracts test")
+public class ContractTestSuite {
 }

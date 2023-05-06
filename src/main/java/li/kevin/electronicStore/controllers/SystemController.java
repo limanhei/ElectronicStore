@@ -6,11 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/system")
 public class SystemController {
 
     @Autowired
     SystemService systemService;
-    @RequestMapping("/api/ping")
+    @RequestMapping("ping")
     public String ping() {
         return systemService.ping();
     }
