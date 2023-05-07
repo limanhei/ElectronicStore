@@ -1,6 +1,6 @@
 package li.kevin.electronicStore.contracts;
 
-import li.kevin.electronicStore.entities.Product;
+import li.kevin.electronicStore.models.Product;
 import li.kevin.electronicStore.fakeRepositories.FakeProductRepository;
 import li.kevin.electronicStore.repositories.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;

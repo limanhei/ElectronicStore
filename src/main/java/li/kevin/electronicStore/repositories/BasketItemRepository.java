@@ -1,6 +1,6 @@
 package li.kevin.electronicStore.repositories;
 
-import li.kevin.electronicStore.entities.BasketItem;
+import li.kevin.electronicStore.models.BasketItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

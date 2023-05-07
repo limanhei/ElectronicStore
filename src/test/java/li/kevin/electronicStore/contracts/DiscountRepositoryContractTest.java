@@ -1,6 +1,6 @@
 package li.kevin.electronicStore.contracts;
 
-import li.kevin.electronicStore.entities.Discount;
+import li.kevin.electronicStore.models.Discount;
 import li.kevin.electronicStore.fakeRepositories.FakeDiscountRepository;
 import li.kevin.electronicStore.repositories.DiscountRepository;
 import org.junit.jupiter.api.BeforeEach;
