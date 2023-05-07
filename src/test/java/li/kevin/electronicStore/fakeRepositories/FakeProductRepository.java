@@ -1,6 +1,6 @@
 package li.kevin.electronicStore.fakeRepositories;
 
-import li.kevin.electronicStore.entities.Product;
+import li.kevin.electronicStore.models.Product;
 import li.kevin.electronicStore.repositories.ProductRepository;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;

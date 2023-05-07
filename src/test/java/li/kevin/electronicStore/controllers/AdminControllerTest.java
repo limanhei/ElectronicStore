@@ -1,8 +1,8 @@
 package li.kevin.electronicStore.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import li.kevin.electronicStore.entities.Discount;
-import li.kevin.electronicStore.entities.Product;
+import li.kevin.electronicStore.models.Discount;
+import li.kevin.electronicStore.models.Product;
 import li.kevin.electronicStore.repositories.DiscountRepository;
 import li.kevin.electronicStore.repositories.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;

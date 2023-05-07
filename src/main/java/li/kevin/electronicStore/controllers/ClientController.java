@@ -1,9 +1,12 @@
 package li.kevin.electronicStore.controllers;
 
-import li.kevin.electronicStore.entities.BasketItem;
+import li.kevin.electronicStore.models.BasketItem;
+import li.kevin.electronicStore.models.Receipt;
 import li.kevin.electronicStore.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/client")
@@ -17,7 +20,7 @@ public class ClientController {
     }
 
     @GetMapping("basket/{clientName}")
-    public Iterable<BasketItem> findBasket(@PathVariable String clientName) {
+    public List<BasketItem> findBasket(@PathVariable String clientName) {
         return service.getBasket(clientName);
     }
 
@@ -29,6 +32,11 @@ public class ClientController {
     @DeleteMapping("removeBasketItem/{id}")
     public String removeBasketItem(@PathVariable int id) {
         return service.removeBasketItem(id);
+    }
+
+    @GetMapping("calculateReceipt/{clientName}")
+    public Receipt calculateReceipt(@PathVariable String clientName) {
+        return service.calculateReceipt(clientName);
     }
 
 }

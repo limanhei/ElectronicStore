@@ -1,7 +1,7 @@
 package li.kevin.electronicStore.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import li.kevin.electronicStore.entities.BasketItem;
+import li.kevin.electronicStore.models.*;
 import li.kevin.electronicStore.repositories.BasketItemRepository;
 import li.kevin.electronicStore.repositories.DiscountRepository;
 import li.kevin.electronicStore.repositories.ProductRepository;
@@ -15,7 +15,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -120,5 +122,24 @@ public class ClientControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
+    }
+
+    @DisplayName("should be able to calculate a receipt for a basket")
+    @Test
+    void calculateReceiptForBasket() throws Exception {
+        Product product1 = productRepository.save(new Product("some-product1", new BigDecimal("10.00")));
+        Product product2 = productRepository.save(new Product("some-product2", new BigDecimal("10.00")));
+        basketItemRepository.save(new BasketItem("some-client", "some-product1", 10));
+        basketItemRepository.save(new BasketItem("some-client", "some-product2", 5));
+        Discount discount1 = discountRepository.save(new Discount("some-product1", 2, null, new BigDecimal("2.00")));
+        Discount discount2 = discountRepository.save(new Discount("some-product1", 10, null, new BigDecimal("5.00")));
+        String expected = mapper.writeValueAsString(new Receipt(
+                List.of(new ReceiptItem(product1, 10, Set.of(discount1, discount2), new BigDecimal("85.00")),
+                        new ReceiptItem(product2, 5, Set.of(), new BigDecimal("50.00"))
+                ), new BigDecimal("135.00")
+        ));
+        mockMvc.perform(get("/client/calculateReceipt/some-client"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(expected));
     }
 }

@@ -1,4 +1,4 @@
-package li.kevin.electronicStore.entities;
+package li.kevin.electronicStore.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

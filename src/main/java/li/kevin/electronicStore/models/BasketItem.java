@@ -1,4 +1,4 @@
-package li.kevin.electronicStore.entities;
+package li.kevin.electronicStore.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,10 +16,10 @@ public class BasketItem {
     public BasketItem() {
     }
 
-    public BasketItem(String clientName, String productName, int criteriaQuantity) {
+    public BasketItem(String clientName, String productName, int quantity) {
         this.clientName = clientName;
         this.productName = productName;
-        this.quantity = criteriaQuantity;
+        this.quantity = quantity;
     }
 
     public int getId() {

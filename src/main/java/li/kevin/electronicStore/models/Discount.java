@@ -1,4 +1,4 @@
-package li.kevin.electronicStore.entities;
+package li.kevin.electronicStore.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import java.math.BigDecimal;
 
 @Entity
-public class Discount {
+public class Discount implements Comparable<Discount> {
     @Id @GeneratedValue
     private int id;
 
@@ -83,5 +83,10 @@ public class Discount {
         int result = id;
         result = 31 * result + productName.hashCode();
         return result;
+    }
+
+    @Override
+    public int compareTo(Discount o) {
+        return o.getId() - id;
     }
 }

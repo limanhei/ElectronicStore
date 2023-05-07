@@ -1,7 +1,7 @@
 package li.kevin.electronicStore.services;
 
-import li.kevin.electronicStore.entities.Discount;
-import li.kevin.electronicStore.entities.Product;
+import li.kevin.electronicStore.models.Discount;
+import li.kevin.electronicStore.models.Product;
 import li.kevin.electronicStore.fakeRepositories.FakeDiscountRepository;
 import li.kevin.electronicStore.fakeRepositories.FakeProductRepository;
 import li.kevin.electronicStore.repositories.DiscountRepository;
