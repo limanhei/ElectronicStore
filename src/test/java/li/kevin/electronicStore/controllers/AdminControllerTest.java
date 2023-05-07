@@ -104,7 +104,7 @@ public class AdminControllerTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().string(payload));
-        assertThat(productRepository.findById("some-product").get().getPrice()).isEqualByComparingTo(new BigDecimal("11.00"));
+        assertThat(productRepository.findById("some-product").orElseThrow().getPrice()).isEqualByComparingTo(new BigDecimal("11.00"));
     }
 
     @DisplayName("should return 404 if a product to be updated not found")
@@ -131,7 +131,7 @@ public class AdminControllerTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
         List<Discount> discounts = discountRepository.findByProductName("some-product");
-        Discount actual = discounts.stream().findFirst().get();
+        Discount actual = discounts.stream().findFirst().orElseThrow();
         assertThat(actual.getCriteriaQuantity()).isEqualTo(10);
     }
 
@@ -182,7 +182,7 @@ public class AdminControllerTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().string(payload));
-        assertThat(discountRepository.findById(expected.getId()).get().getDiscountedPercent()).isEqualByComparingTo(new BigDecimal("20.00"));
+        assertThat(discountRepository.findById(expected.getId()).orElseThrow().getDiscountedPercent()).isEqualByComparingTo(new BigDecimal("20.00"));
     }
 
     @DisplayName("should return 404 if a product to be updated not found")

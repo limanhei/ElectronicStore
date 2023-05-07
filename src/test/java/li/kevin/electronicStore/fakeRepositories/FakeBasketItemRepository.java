@@ -1,7 +1,7 @@
 package li.kevin.electronicStore.fakeRepositories;
 
-import li.kevin.electronicStore.entities.Discount;
-import li.kevin.electronicStore.repositories.DiscountRepository;
+import li.kevin.electronicStore.entities.BasketItem;
+import li.kevin.electronicStore.repositories.BasketItemRepository;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,9 +16,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class FakeDiscountRepository implements DiscountRepository {
+public class FakeBasketItemRepository implements BasketItemRepository {
 
-    private final Set<Discount> discounts = new HashSet<>();
+    private final Set<BasketItem> basketItems = new HashSet<>();
 
     private AtomicInteger idSequence = new AtomicInteger();
 
@@ -28,17 +28,17 @@ public class FakeDiscountRepository implements DiscountRepository {
     }
 
     @Override
-    public <S extends Discount> S saveAndFlush(S entity) {
+    public <S extends BasketItem> S saveAndFlush(S entity) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <S extends Discount> List<S> saveAllAndFlush(Iterable<S> entities) {
+    public <S extends BasketItem> List<S> saveAllAndFlush(Iterable<S> entities) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void deleteAllInBatch(Iterable<Discount> entities) {
+    public void deleteAllInBatch(Iterable<BasketItem> entities) {
         throw new UnsupportedOperationException();
     }
 
@@ -53,102 +53,102 @@ public class FakeDiscountRepository implements DiscountRepository {
     }
 
     @Override
-    public Discount getOne(Integer i) {
+    public BasketItem getOne(Integer i) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Discount getById(Integer i) {
+    public BasketItem getById(Integer i) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Discount getReferenceById(Integer i) {
+    public BasketItem getReferenceById(Integer i) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <S extends Discount> Optional<S> findOne(Example<S> example) {
+    public <S extends BasketItem> Optional<S> findOne(Example<S> example) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <S extends Discount> List<S> findAll(Example<S> example) {
+    public <S extends BasketItem> List<S> findAll(Example<S> example) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <S extends Discount> List<S> findAll(Example<S> example, Sort sort) {
+    public <S extends BasketItem> List<S> findAll(Example<S> example, Sort sort) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <S extends Discount> Page<S> findAll(Example<S> example, Pageable pageable) {
+    public <S extends BasketItem> Page<S> findAll(Example<S> example, Pageable pageable) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <S extends Discount> long count(Example<S> example) {
+    public <S extends BasketItem> long count(Example<S> example) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <S extends Discount> boolean exists(Example<S> example) {
+    public <S extends BasketItem> boolean exists(Example<S> example) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <S extends Discount, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+    public <S extends BasketItem, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <S extends Discount> S save(S entity) {
-        boolean exist = discounts.remove(entity);
+    public <S extends BasketItem> S save(S entity) {
+        boolean exist = basketItems.remove(entity);
         if (!exist) {
             entity.setId(idSequence.incrementAndGet());
         }
-        discounts.add(entity);
+        basketItems.add(entity);
         return entity;
     }
 
     @Override
-    public <S extends Discount> List<S> saveAll(Iterable<S> entities) {
+    public <S extends BasketItem> List<S> saveAll(Iterable<S> entities) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Optional<Discount> findById(Integer i) {
-        return discounts.stream().filter(it -> it.getId() == i).findFirst();
+    public Optional<BasketItem> findById(Integer i) {
+        return basketItems.stream().filter(it -> it.getId() == i).findFirst();
     }
 
     @Override
     public boolean existsById(Integer id) {
-        return discounts.stream().anyMatch(it -> it.getId() == id);
+        return basketItems.stream().anyMatch(it -> it.getId() == id);
     }
 
     @Override
-    public List<Discount> findAll() {
-        return discounts.stream().toList();
+    public List<BasketItem> findAll() {
+        return basketItems.stream().toList();
     }
 
     @Override
-    public List<Discount> findAllById(Iterable<Integer> ids) {
+    public List<BasketItem> findAllById(Iterable<Integer> ids) {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public long count() {
-        return discounts.size();
+        return basketItems.size();
     }
 
     @Override
     public void deleteById(Integer id) {
-        discounts.stream().filter(it -> it.getId() == id).findFirst().ifPresent(discounts::remove);
+        basketItems.stream().filter(it -> it.getId() == id).findFirst().ifPresent(basketItems::remove);
     }
 
     @Override
-    public void delete(Discount entity) {
+    public void delete(BasketItem entity) {
         throw new UnsupportedOperationException();
     }
 
@@ -158,27 +158,27 @@ public class FakeDiscountRepository implements DiscountRepository {
     }
 
     @Override
-    public void deleteAll(Iterable<? extends Discount> entities) {
+    public void deleteAll(Iterable<? extends BasketItem> entities) {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void deleteAll() {
-        discounts.clear();
+        basketItems.clear();
     }
 
     @Override
-    public List<Discount> findAll(Sort sort) {
+    public List<BasketItem> findAll(Sort sort) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Page<Discount> findAll(Pageable pageable) {
+    public Page<BasketItem> findAll(Pageable pageable) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public List<Discount> findByProductName(String productName) {
-        return discounts.stream().filter(it -> it.getProductName().equals(productName)).collect(Collectors.toList());
+    public List<BasketItem> findByClientName(String clientName) {
+        return basketItems.stream().filter(it -> it.getClientName().equals(clientName)).collect(Collectors.toList());
     }
 }
