@@ -59,7 +59,7 @@ public class ProductRepositoryContractTest {
     void updateProduct(String ignoredTestName, ProductRepository repository) {
         repository.save(new Product("some-product", new BigDecimal("10.00")));
         repository.save(new Product("some-product", new BigDecimal("11.00")));
-        assertThat(repository.findById("some-product").get().getPrice()).isEqualByComparingTo(new BigDecimal("11.00"));
+        assertThat(repository.findById("some-product").orElseThrow().getPrice()).isEqualByComparingTo(new BigDecimal("11.00"));
     }
 
     @ParameterizedTest(name = "[{index}]: {0}")
@@ -83,7 +83,7 @@ public class ProductRepositoryContractTest {
         Product product2 = new Product("some-other-product", new BigDecimal("10.00"));
         repository.save(product1);
         repository.save(product2);
-        Product actual = repository.findById("some-product").get();
+        Product actual = repository.findById("some-product").orElseThrow();
         assertThat(actual).isEqualTo(product1);
     }
 

@@ -64,7 +64,7 @@ public class AdminServiceTest {
         Product expected = new Product("some-product", new BigDecimal("10.00"));
         adminService.saveProduct(expected);
         adminService.updateProduct(new Product("some-product", new BigDecimal("11.00")));
-        assertThat(productRepository.findById("some-product").get().getPrice())
+        assertThat(productRepository.findById("some-product").orElseThrow().getPrice())
                 .isEqualByComparingTo(new BigDecimal("11.00"));
     }
 
@@ -138,8 +138,9 @@ public class AdminServiceTest {
         adminService.saveProduct(new Product("some-product", new BigDecimal("10.00")));
         Discount expected = new Discount("some-product", 1, new BigDecimal("50.00"), new BigDecimal("10.00"));
         expected = adminService.saveDiscount(expected);
-        adminService.updateDiscount(new Discount("some-product", 1, new BigDecimal("60.00"), new BigDecimal("10.00")));
-        assertThat(discountRepository.findById(expected.getId()).get().getDiscountedPercent())
+        expected.setDiscountedPercent(new BigDecimal("60.00"));
+        adminService.updateDiscount(expected);
+        assertThat(discountRepository.findById(expected.getId()).orElseThrow().getDiscountedPercent())
                 .isEqualByComparingTo(new BigDecimal("60.00"));
     }
 
